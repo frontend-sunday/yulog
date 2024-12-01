@@ -1,5 +1,5 @@
 #!/bin/sh
 cd ../
 mkdir output
-cp -R ./dev-rim/* ./output
-cp -R ./output ./dev-rim/
+cp -R ./yulog/* ./output
+cp -R ./output ./yulog/
