@@ -20,8 +20,8 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ secrets.MY_TOKEN }}
         with:
-          source-directory: 'output'
-          destination-github-username: frontend-sunday
+          source-directory: "output"
+          destination-github-username: yurim22
           destination-repository-name: yulog
           user-email: ${{ secrets.EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
