@@ -1,3 +1,4 @@
+import { Footer } from "./Footer";
 import Header from "./Header";
 
 const Layout = ({
@@ -8,7 +9,8 @@ const Layout = ({
   return (
     <>
       <Header />
-      <main className="p-4 pt-3 md:pt-6 min-h-screen">{children}</main>
+      <main className="min-h-screen">{children}</main>
+      <Footer />
     </>
   );
 };
