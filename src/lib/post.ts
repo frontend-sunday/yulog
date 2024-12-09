@@ -9,6 +9,14 @@ import { Post, PostMatter } from "@/config/types";
 const BASE_PATH = "/src/posts";
 const POSTS_PATH = path.join(process.cwd(), BASE_PATH);
 
+// 모든 MDX 파일 조회
+export const getPostPaths = (category?: string) => {
+  const folder = category || "**";
+  const postPaths: string[] = sync(`${POSTS_PATH}/${folder}/**/*.mdx`);
+
+  return postPaths;
+};
+
 // MDX 파일 파싱 : abstract / detail 구분
 const parsePost = async (postPath: string): Promise<Post> => {
   const postAbstract = parsePostAbstract(postPath);
@@ -53,10 +61,28 @@ export const getPostPath = (category?: string) => {
   return paths;
 };
 
+// post를 날짜 최신순으로 정렬
+const sortPostList = (PostList: Post[]) => {
+  return PostList.sort((a, b) => (a.date > b.date ? -1 : 1));
+};
+
 // 모든 포스트 목록 조회
 export const getPostList = async (category?: string): Promise<Post[]> => {
   const paths: string[] = getPostPath(category);
   const posts = await Promise.all(paths.map((postPath) => parsePost(postPath)));
 
   return posts;
+};
+
+export const getSortedPostList = async (category?: string) => {
+  const postList = await getPostList(category);
+  return sortPostList(postList);
+};
+
+// post 상세 페이지 조회
+export const getPostDetail = async (category: string, slug: string) => {
+  const filePath = `${POSTS_PATH}/${category}/${slug}/content.mdx`;
+  const detail = await parsePost(filePath);
+
+  return detail;
 };
